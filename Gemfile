@@ -45,8 +45,9 @@ group :development, :test do
 end
 
 gem 'therubyracer'
-gem 'kaminari'
+gem 'nokogiri'
 
 group :production do
+  gem 'rails_12factor'
   gem 'pg'
 end
