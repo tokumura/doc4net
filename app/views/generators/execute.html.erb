@@ -1,3 +1,10 @@
-<h4>Output</h4>
+<h2>Output</h2>
 <br/>
-<%= simple_format(@output) %>
+<% @class_list.each do |c| %>
+  <h4><%= c.class.attribute("name") %></h4>
+  <% c.methods.each do |m| %>
+    ●　<%= m.attribute("name") %></br>
+  <% end %>
+  </br>
+  </br>
+<% end %>
