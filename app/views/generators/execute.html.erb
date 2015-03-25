@@ -1,10 +1,34 @@
 <h2>Output</h2>
+<%= form_tag('/generators/execute', :multipart => true) do %>
+  <%= file_field_tag 'xml' %>
+  <%= submit_tag 'upload', :class => "btn btn-primary" %>
+<% end %>
 <br/>
-<% @class_list.each do |c| %>
-  <h4><%= c.class.attribute("name") %></h4>
-  <% c.methods.each do |m| %>
-    ●　<%= m.attribute("name") %></br>
-  <% end %>
-  </br>
+<% @service_list.each do |s| %>
+<div class="col-md-12">
+  <h3><%= s.name %></h3>
+  <h4><%= s.summary %></h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="background-color:#efefef">戻り値</th>
+        <th style="background-color:#efefef">メソッドと説明</th>
+      <tr>
+    </thead>
+    <tbody>
+    <% s.methods.each do |m| %>
+      <tr>
+        <td>
+          <%= m.returns %>
+        </td>
+        <td style="width:80%">
+          <%= m.name %><br/>
+          <%= m.summary %>
+        </td>
+      <tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
   </br>
 <% end %>
