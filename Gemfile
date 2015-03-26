@@ -47,6 +47,7 @@ end
 gem 'therubyracer'
 gem 'nokogiri'
 gem 'bootstrap-sass', '~> 3.3.4'
+gem 'font-awesome-sass'
 
 group :production do
   gem 'rails_12factor'

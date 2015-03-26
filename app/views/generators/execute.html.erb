@@ -1,13 +1,17 @@
-<h2>Output</h2>
-<%= form_tag('/generators/execute', :multipart => true) do %>
-  <%= file_field_tag 'xml' %>
-  <%= submit_tag 'upload', :class => "btn btn-primary" %>
-<% end %>
-<br/>
+<h1>CalnartX API リファレンス</h1>
+<%# form_tag('/generators/execute', :multipart => true) do %>
+  <%# file_field_tag 'xml' %>
+  <%#= submit_tag 'upload', :class => "btn btn-primary" %>
+<%# end %>
+
 <% @service_list.each do |s| %>
 <div class="col-md-12">
-  <h3><%= s.name %></h3>
-  <h4><%= s.summary %></h4>
+  <div class="page-header">
+    <h2>
+      <i class="fa fa-flag"></i> <%= s.summary %><br/>
+      <small><%= s.name %></small>
+    </h2>
+  </div>
   <table class="table table-bordered">
     <thead>
       <tr>
