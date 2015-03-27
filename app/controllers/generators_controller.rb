@@ -21,12 +21,12 @@ class GeneratorsController < ApplicationController
       service_summary = tm.xpath('./summary').text.strip
 
       doc.xpath("//member[starts-with(@name, \"M:#{service_name}\")]").each do |mm|
-        method_name = get_method_name(mm)
-        method_summary = mm.xpath('./summary').text.strip
-        method_returns = get_method_returns(mm)
         summary_array = get_method_params_summary(mm)
         type_array = get_params_type_array(mm)
         method_params = integrate_method_params(summary_array, type_array)
+        method_name = get_method_name(mm, method_params)
+        method_summary = mm.xpath('./summary').text.strip
+        method_returns = get_method_returns(mm)
         methods << Method.new(method_name, method_summary, method_returns, method_params)
       end
 
@@ -43,10 +43,16 @@ class GeneratorsController < ApplicationController
     method_returns
   end
 
-  def get_method_name mm
+  def get_method_name mm, method_params
     name = mm.attribute("name").to_s.gsub(/M:/, "")
     last_idx = name.split("(")[0].split(".").size - 1
-    method_name = name.split("(")[0].split(".")[last_idx] + "()"
+    method_name = name.split("(")[0].split(".")[last_idx]
+
+    param_array = Array.new
+    method_params.each do |p|
+      param_array << p.split("::")[0].to_s + " " + p.split("::")[1].to_s
+    end
+    method_name = method_name + "(" + param_array.join(", ") + ")"
   end
 
   def get_method_params_summary mm

@@ -1,9 +1,3 @@
-<h1>CalnartX API リファレンス</h1>
-<%# form_tag('/generators/execute', :multipart => true) do %>
-  <%# file_field_tag 'xml' %>
-  <%#= submit_tag 'upload', :class => "btn btn-primary" %>
-<%# end %>
-
 <% @service_list.each do |s| %>
 <div class="col-md-12">
   <div class="page-header">
@@ -14,9 +8,9 @@
   </div>
   <table class="table table-bordered">
     <thead>
-      <tr>
-        <th style="background-color:#efefef">戻り値</th>
-        <th style="background-color:#efefef">メソッドと説明</th>
+      <tr style="background-color:#6F9CB9">
+        <th style="color:white">戻り値</th>
+        <th style="color:white">メソッドと説明</th>
       <tr>
     </thead>
     <tbody>
@@ -28,11 +22,35 @@
         <td style="width:80%">
           <%= m.name %><br/>
           <%= m.summary %>
+          <% if m.params.size == 0 %>
+            <br/>
+            パラメータ：なし
+          <% else %>
+            <br/>
+            パラメータ：<br/>
+            <table class="table table-bordered" style="width:600px;">
+              <thead>
+                <tr style="background-color:#ededed">
+                  <th>型</th>
+                  <th>名前</th>
+                  <th>説明</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% m.params.each do |p| %>
+                <tr>
+                  <td><%= p.split("::")[0].to_s %></td>
+                  <td><%= p.split("::")[1].to_s %></td>
+                  <td><%= p.split("::")[2].to_s %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
         </td>
       <tr>
     <% end %>
     </tbody>
   </table>
 </div>
-  </br>
 <% end %>

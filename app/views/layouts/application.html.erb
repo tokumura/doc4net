@@ -6,7 +6,26 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<% if request.path_info.include?("execute") == false %>
+<body class="signin">
+<% else %>
 <body>
+<% end %>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">CalnartX APIリファレンス</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+        <%= form_tag('/generators/execute', :multipart => true, :class => 'form-inline') do %>
+          <%= file_field_tag 'xml', :style => "color:#eeeeee" %>
+          <%= submit_tag 'インポート', :class => "btn btn-primary btn-xs" %>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <div class="container">
     <div class="row">
