@@ -13,6 +13,7 @@ class GeneratorsController < ApplicationController
     @service_list = Array.new
     all_method_list = Array.new
     @appname = params[:appname]
+    puts @appname
     xml = params[:xml]
 
     if xml
