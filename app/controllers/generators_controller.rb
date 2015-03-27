@@ -1,13 +1,13 @@
 class GeneratorsController < ApplicationController
-  def index
-    @appname = params[:appname]
-  end
 
   Service = Struct.new(:name, :summary, :methods)  #methods is array => Method 
   Method = Struct.new(:name, :summary, :returns, :params)  #params is array => String(name::japanese)
-  Param = Struct.new(:type, :name, :summary)
+
+  def index
+    @appname = params[:appname]
+  end
   
-  # APIリファレンス生成
+  # クラスリファレンス生成
   #
   def execute
     @service_list = Array.new
@@ -37,6 +37,8 @@ class GeneratorsController < ApplicationController
     end
   end
 
+  # メソッド戻り値の配列取得
+  #
   def get_method_returns mm
     method_returns = "void"
     mm.xpath('./returns').each do |r|
@@ -46,6 +48,8 @@ class GeneratorsController < ApplicationController
     method_returns
   end
 
+  # メソッド名を取得
+  #
   def get_method_name mm, method_params
     name = mm.attribute("name").to_s.gsub(/M:/, "")
     last_idx = name.split("(")[0].split(".").size - 1
@@ -58,6 +62,8 @@ class GeneratorsController < ApplicationController
     method_name = method_name + "(" + param_array.join(", ") + ")"
   end
 
+  # メソッドパラメータ説明の配列を取得
+  #
   def get_method_params_summary mm
     #params_type = name.split("(")[1].to_s.gsub(/\)/, "").split(",")
     method_params = Array.new
@@ -67,6 +73,8 @@ class GeneratorsController < ApplicationController
     method_params
   end
 
+  # メソッドパラメータ型の配列を取得
+  #
   def get_params_type_array mm
     params_array = Array.new
     method_name = mm.attribute("name").to_s.gsub(/M:/, "")
@@ -93,6 +101,8 @@ class GeneratorsController < ApplicationController
     params_array
   end
 
+  # メソッドパラメータ型と説明の配列を統合
+  #
   def integrate_method_params summary_array, type_array
     params_array = Array.new
     summary_array.each_with_index do |summary, i|
@@ -100,6 +110,5 @@ class GeneratorsController < ApplicationController
     end
     params_array
   end
-
 
 end
