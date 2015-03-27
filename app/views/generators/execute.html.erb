@@ -1,5 +1,5 @@
-<% @service_list.each do |s| %>
 <div class="col-md-12">
+<% @service_list.each do |s| %>
   <div class="page-header">
     <h2>
       <i class="fa fa-flag"></i> <%= s.summary %><br/>
@@ -52,8 +52,8 @@
     <% end %>
     </tbody>
   </table>
-</div>
 <% end %>
+</div>
 
 <% if @service_list.size == 0 %>
 <div class="jumbotron" style="background: rgba(255, 255, 255, 0.0);">
