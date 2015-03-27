@@ -14,16 +14,25 @@
   <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">CalnartX APIリファレンス</a>
+        <% if @appname %>
+          <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">
+            <%=@appname%> APIリファレンス</a>
+        <% else %>
+          <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">
+            APIリファレンスジェネレーター for Visual Studio</a>
+        <% end %>
       </div>
+      <% if request.path_info.include?("execute") %>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
         <%= form_tag('/generators/execute', :multipart => true, :class => 'form-inline') do %>
           <%= file_field_tag 'xml', :style => "color:#eeeeee" %>
           <%= submit_tag 'インポート', :class => "btn btn-primary btn-xs" %>
+          <%= hidden_field_tag 'appname', @appname %>
         <% end %>
         </ul>
       </div>
+      <% end %>
     </div>
   </nav>
 

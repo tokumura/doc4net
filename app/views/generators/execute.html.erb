@@ -54,3 +54,10 @@
   </table>
 </div>
 <% end %>
+
+<% if @service_list.size == 0 %>
+<div class="jumbotron" style="background: rgba(255, 255, 255, 0.0);">
+  <img src="http://amano-jack.jp/wp-content/uploads/2014/07/ec8de39b.jpg" width="300" height="270">
+  <p>Visual Studioで出力されたXMLドキュメントコメントをちゃんと選んでください。</p>
+</div>
+<% end %>

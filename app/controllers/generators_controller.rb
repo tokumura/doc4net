@@ -1,5 +1,6 @@
 class GeneratorsController < ApplicationController
   def index
+    @appname = params[:appname]
   end
 
   Service = Struct.new(:name, :summary, :methods)  #methods is array => Method 
@@ -9,28 +10,29 @@ class GeneratorsController < ApplicationController
   # APIリファレンス生成
   #
   def execute
-    xml = params[:xml].read
-    doc = Nokogiri::XML(xml)
-
     @service_list = Array.new
     all_method_list = Array.new
+    @appname = params[:appname]
+    xml = params[:xml]
 
-    doc.xpath('//member[starts-with(@name, "T:SharedLibrary.Service.")]').each do |tm|
-      methods = Array.new
-      service_name = tm.attribute("name").to_s.gsub(/T:/, "")
-      service_summary = tm.xpath('./summary').text.strip
+    if xml
+      doc = Nokogiri::XML(xml.read)
+      doc.xpath('//member[starts-with(@name, "T:SharedLibrary.Service.")]').each do |tm|
+        methods = Array.new
+        service_name = tm.attribute("name").to_s.gsub(/T:/, "")
+        service_summary = tm.xpath('./summary').text.strip
 
-      doc.xpath("//member[starts-with(@name, \"M:#{service_name}\")]").each do |mm|
-        summary_array = get_method_params_summary(mm)
-        type_array = get_params_type_array(mm)
-        method_params = integrate_method_params(summary_array, type_array)
-        method_name = get_method_name(mm, method_params)
-        method_summary = mm.xpath('./summary').text.strip
-        method_returns = get_method_returns(mm)
-        methods << Method.new(method_name, method_summary, method_returns, method_params)
+        doc.xpath("//member[starts-with(@name, \"M:#{service_name}\")]").each do |mm|
+          summary_array = get_method_params_summary(mm)
+          type_array = get_params_type_array(mm)
+          method_params = integrate_method_params(summary_array, type_array)
+          method_name = get_method_name(mm, method_params)
+          method_summary = mm.xpath('./summary').text.strip
+          method_returns = get_method_returns(mm)
+          methods << Method.new(method_name, method_summary, method_returns, method_params)
+        end
+        @service_list << Service.new(service_name, service_summary, methods)
       end
-
-      @service_list << Service.new(service_name, service_summary, methods)
     end
   end
 

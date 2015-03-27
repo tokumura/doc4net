@@ -1,0 +1,19 @@
+<div class="jumbotron" style="background: rgba(255, 255, 255, 0.3);">
+  <h1><%=@appname%></h1>
+  <h2>Visual Studio向けのAPIリファレンスジェネレーターです。</h2>
+  <br/>
+  <h4>Visual Studioで出力したXMLドキュメントコメントファイルを選択してください。</h4>
+  <p>
+    <%= form_tag('/generators/execute', :multipart => true, :class => 'form-inline') do %>
+      <% if !@appname %>
+      <div class="form-group" style="margin-right:70px;">
+        <%= text_field_tag 'appname', "", :placeholder => "アプリケーション名" %>
+      </div>
+      <% end %>
+      <div class="form-group">
+        <%= file_field_tag 'xml' %>
+      </div>
+      <%= submit_tag 'APIドキュメント作成', :class => "btn btn-primary btn-lg" %>
+    <% end %>
+  </p>
+</div>
