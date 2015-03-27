@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Doc4net</title>
+  <title>Doc4net - クラスリファレンスジェネレーター</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -16,10 +16,10 @@
       <div class="navbar-header">
         <% if @appname %>
           <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">
-            <%=@appname%> APIリファレンス</a>
+            <%=@appname%> クラスリファレンス</a>
         <% else %>
           <a class="navbar-brand" href="#" style="color:#eeeeee; font-size:30px;">
-            APIリファレンスジェネレーター for Visual Studio</a>
+            Doc4Net - クラスリファレンスジェネレーター for Visual Studio</a>
         <% end %>
       </div>
       <% if request.path_info.include?("execute") %>
