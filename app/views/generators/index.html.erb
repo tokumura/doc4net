@@ -1,6 +1,9 @@
 <div class="jumbotron" style="background: rgba(255, 255, 255, 0.3);">
-  <h1><%=@appname%></h1>
-  <h2>Visual Studio向けのAPIリファレンスジェネレーターです。</h2>
+  <% if @appname %>
+    <h1><%=@appname%> APIリファレンス</h1>
+  <% else %>
+    <h2>Visual Studio向けのAPIリファレンスジェネレーターです。</h2>
+  <% end %>
   <br/>
   <h4>Visual Studioで出力したXMLドキュメントコメントファイルを選択してください。</h4>
   <p>
